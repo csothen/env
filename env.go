@@ -6,7 +6,7 @@ import (
 	"strconv"
 )
 
-type Parser interface {
+type EnvParser interface {
 	String(key, defaultValue string) string
 	Int(key string, defaultValue int) int
 	Int32(key string, defaultValue int32) int32
@@ -16,15 +16,15 @@ type Parser interface {
 	Bool(key string, defaultValue bool) bool
 }
 
-type envParser struct {
+type Parser struct {
 	l *log.Logger
 }
 
-func NewParser(logger *log.Logger) *envParser {
-	return &envParser{logger}
+func NewParser(logger *log.Logger) *Parser {
+	return &Parser{logger}
 }
 
-func (e *envParser) String(key, defaultValue string) string {
+func (e *Parser) String(key, defaultValue string) string {
 	env := e.loadEnv(key)
 	if env == nil {
 		return defaultValue
@@ -33,7 +33,7 @@ func (e *envParser) String(key, defaultValue string) string {
 	return *env
 }
 
-func (e *envParser) Int(key string, defaultValue int) int {
+func (e *Parser) Int(key string, defaultValue int) int {
 	env := e.loadEnv(key)
 	if env == nil {
 		return defaultValue
@@ -48,7 +48,7 @@ func (e *envParser) Int(key string, defaultValue int) int {
 	return v
 }
 
-func (e *envParser) Int32(key string, defaultValue int32) int32 {
+func (e *Parser) Int32(key string, defaultValue int32) int32 {
 	env := e.loadEnv(key)
 	if env == nil {
 		return defaultValue
@@ -63,7 +63,7 @@ func (e *envParser) Int32(key string, defaultValue int32) int32 {
 	return int32(v)
 }
 
-func (e *envParser) Int64(key string, defaultValue int64) int64 {
+func (e *Parser) Int64(key string, defaultValue int64) int64 {
 	env := e.loadEnv(key)
 	if env == nil {
 		return defaultValue
@@ -78,7 +78,7 @@ func (e *envParser) Int64(key string, defaultValue int64) int64 {
 	return v
 }
 
-func (e *envParser) Float32(key string, defaultValue float32) float32 {
+func (e *Parser) Float32(key string, defaultValue float32) float32 {
 	env := e.loadEnv(key)
 	if env == nil {
 		return defaultValue
@@ -93,7 +93,7 @@ func (e *envParser) Float32(key string, defaultValue float32) float32 {
 	return float32(v)
 }
 
-func (e *envParser) Float64(key string, defaultValue float64) float64 {
+func (e *Parser) Float64(key string, defaultValue float64) float64 {
 	env := e.loadEnv(key)
 	if env == nil {
 		return defaultValue
@@ -108,7 +108,7 @@ func (e *envParser) Float64(key string, defaultValue float64) float64 {
 	return v
 }
 
-func (e *envParser) Bool(key string, defaultValue bool) bool {
+func (e *Parser) Bool(key string, defaultValue bool) bool {
 	env := e.loadEnv(key)
 	if env == nil {
 		return defaultValue
@@ -123,7 +123,7 @@ func (e *envParser) Bool(key string, defaultValue bool) bool {
 	return v
 }
 
-func (e *envParser) loadEnv(key string) *string {
+func (e *Parser) loadEnv(key string) *string {
 	env, ok := os.LookupEnv(key)
 	if !ok {
 		e.l.Printf("[INFO] %s not set, using default value\n", key)
