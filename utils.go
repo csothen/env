@@ -61,7 +61,7 @@ func toFloat64(value string, defaultValue float64, useDefault bool) float64 {
 		return defaultValue
 	}
 
-	v, err := strconv.ParseFloat(value, 32)
+	v, err := strconv.ParseFloat(value, 64)
 	if err != nil {
 		return defaultValue
 	}
