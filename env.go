@@ -46,11 +46,12 @@ func (p *Parser) Load(file string) error {
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
 		line := strings.Split(scanner.Text(), "=")
-		if len(line) != 2 {
+		if len(line) < 2 {
 			return ErrWrongFormat
 		}
 
-		key, value := strings.TrimSpace(line[0]), strings.TrimSpace(line[1])
+		key := strings.TrimSpace(line[0])
+		value := strings.TrimSpace(strings.Join(line[1:], ""))
 
 		p.cache[key] = value
 
