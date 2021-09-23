@@ -69,6 +69,9 @@ func (p *Parser) Load(file string) error {
 
 func (p *Parser) String(key, defaultValue string) string {
 	v, useDefault := p.envOrDefault(key)
+	if useDefault {
+		return defaultValue
+	}
 	return v
 }
 
