@@ -5,7 +5,11 @@ import (
 	"strconv"
 )
 
-func toInt(value string, defaultValue int) int {
+func toInt(value string, defaultValue int, useDefault bool) int {
+	if useDefault {
+		return defaultValue
+	}
+
 	v, err := strconv.Atoi(value)
 	if err != nil {
 		return defaultValue
@@ -13,7 +17,11 @@ func toInt(value string, defaultValue int) int {
 	return v
 }
 
-func toInt32(value string, defaultValue int32) int32 {
+func toInt32(value string, defaultValue int32, useDefault bool) int32 {
+	if useDefault {
+		return defaultValue
+	}
+
 	v, err := strconv.ParseInt(value, 10, 32)
 	if err != nil {
 		return defaultValue
@@ -22,7 +30,11 @@ func toInt32(value string, defaultValue int32) int32 {
 	return int32(v)
 }
 
-func toInt64(value string, defaultValue int64) int64 {
+func toInt64(value string, defaultValue int64, useDefault bool) int64 {
+	if useDefault {
+		return defaultValue
+	}
+
 	v, err := strconv.ParseInt(value, 10, 64)
 	if err != nil {
 		return defaultValue
@@ -31,7 +43,11 @@ func toInt64(value string, defaultValue int64) int64 {
 	return v
 }
 
-func toFloat32(value string, defaultValue float32) float32 {
+func toFloat32(value string, defaultValue float32, useDefault bool) float32 {
+	if useDefault {
+		return defaultValue
+	}
+
 	v, err := strconv.ParseFloat(value, 32)
 	if err != nil {
 		return defaultValue
@@ -40,7 +56,11 @@ func toFloat32(value string, defaultValue float32) float32 {
 	return float32(v)
 }
 
-func toFloat64(value string, defaultValue float64) float64 {
+func toFloat64(value string, defaultValue float64, useDefault bool) float64 {
+	if useDefault {
+		return defaultValue
+	}
+
 	v, err := strconv.ParseFloat(value, 32)
 	if err != nil {
 		return defaultValue
@@ -49,7 +69,11 @@ func toFloat64(value string, defaultValue float64) float64 {
 	return float64(v)
 }
 
-func toBool(value string, defaultValue bool) bool {
+func toBool(value string, defaultValue, useDefault bool) bool {
+	if useDefault {
+		return defaultValue
+	}
+
 	v, err := strconv.ParseBool(value)
 	if err != nil {
 		return defaultValue

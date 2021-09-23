@@ -68,91 +68,48 @@ func (p *Parser) Load(file string) error {
 }
 
 func (p *Parser) String(key, defaultValue string) string {
-	v, isCached := p.cache[key]
-	if !isCached {
-		env := loadEnv(key)
-		if env == nil {
-			return defaultValue
-		}
-		v = *env
-	}
+	v, useDefault := p.envOrDefault(key)
 	return v
 }
 
 func (p *Parser) Int(key string, defaultValue int) int {
-	v, isCached := p.cache[key]
-	if !isCached {
-		env := loadEnv(key)
-		if env == nil {
-			return defaultValue
-		}
-		v = *env
-	}
-
-	return toInt(v, defaultValue)
+	v, useDefault := p.envOrDefault(key)
+	return toInt(v, defaultValue, useDefault)
 }
 
 func (p *Parser) Int32(key string, defaultValue int32) int32 {
-	v, isCached := p.cache[key]
-	if !isCached {
-		env := loadEnv(key)
-		if env == nil {
-			return defaultValue
-		}
-		v = *env
-	}
-
-	return toInt32(v, defaultValue)
+	v, useDefault := p.envOrDefault(key)
+	return toInt32(v, defaultValue, useDefault)
 }
 
 func (p *Parser) Int64(key string, defaultValue int64) int64 {
-	v, isCached := p.cache[key]
-	if !isCached {
-		env := loadEnv(key)
-		if env == nil {
-			return defaultValue
-		}
-		v = *env
-	}
-
-	return toInt64(v, defaultValue)
+	v, useDefault := p.envOrDefault(key)
+	return toInt64(v, defaultValue, useDefault)
 }
 
 func (p *Parser) Float32(key string, defaultValue float32) float32 {
-	v, isCached := p.cache[key]
-	if !isCached {
-		env := loadEnv(key)
-		if env == nil {
-			return defaultValue
-		}
-		v = *env
-	}
-
-	return toFloat32(v, defaultValue)
+	v, useDefault := p.envOrDefault(key)
+	return toFloat32(v, defaultValue, useDefault)
 }
 
 func (p *Parser) Float64(key string, defaultValue float64) float64 {
-	v, isCached := p.cache[key]
-	if !isCached {
-		env := loadEnv(key)
-		if env == nil {
-			return defaultValue
-		}
-		v = *env
-	}
-
-	return toFloat64(v, defaultValue)
+	v, useDefault := p.envOrDefault(key)
+	return toFloat64(v, defaultValue, useDefault)
 }
 
 func (p *Parser) Bool(key string, defaultValue bool) bool {
+	v, useDefault := p.envOrDefault(key)
+	return toBool(v, defaultValue, useDefault)
+}
+
+func (p *Parser) envOrDefault(key string) (string, bool) {
 	v, isCached := p.cache[key]
 	if !isCached {
 		env := loadEnv(key)
 		if env == nil {
-			return defaultValue
+			return "", true
 		}
-		v = *env
+		return *env, false
 	}
-
-	return toBool(v, defaultValue)
+	return v, false
 }
