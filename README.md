@@ -14,6 +14,11 @@ import "github.com/csothen/env"
 func main() {
     l := log.New(os.Stdout, "[ logger ]", log.LstdFlags)
     p := env.NewParser()
+    
+    err := p.Load(".env")
+    if err != nil {
+        panic(err)
+    }
 
     name := p.String("NAME", "Csothen")
 
