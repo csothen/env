@@ -74,7 +74,8 @@ func (p *Parser) String(key, defaultValue string) string {
 		if env == nil {
 			return defaultValue
 		}
-		return *env
+
+		v = *env
 	}
 	return v
 }
@@ -87,7 +88,7 @@ func (p *Parser) Int(key string, defaultValue int) int {
 			return defaultValue
 		}
 
-		return toInt(*env, defaultValue)
+		v = *env
 	}
 
 	return toInt(v, defaultValue)
@@ -101,7 +102,7 @@ func (p *Parser) Int32(key string, defaultValue int32) int32 {
 			return defaultValue
 		}
 
-		return toInt32(*env, defaultValue)
+		v = *env
 	}
 
 	return toInt32(v, defaultValue)
@@ -115,7 +116,7 @@ func (p *Parser) Int64(key string, defaultValue int64) int64 {
 			return defaultValue
 		}
 
-		return toInt64(*env, defaultValue)
+		v = *env
 	}
 
 	return toInt64(v, defaultValue)
@@ -129,7 +130,7 @@ func (p *Parser) Float32(key string, defaultValue float32) float32 {
 			return defaultValue
 		}
 
-		return toFloat32(*env, defaultValue)
+		v = *env
 	}
 
 	return toFloat32(v, defaultValue)
@@ -143,7 +144,7 @@ func (p *Parser) Float64(key string, defaultValue float64) float64 {
 			return defaultValue
 		}
 
-		return toFloat64(*env, defaultValue)
+		v = *env
 	}
 
 	return toFloat64(v, defaultValue)
@@ -157,7 +158,7 @@ func (p *Parser) Bool(key string, defaultValue bool) bool {
 			return defaultValue
 		}
 
-		return toBool(*env, defaultValue)
+		v = *env
 	}
 
 	return toBool(v, defaultValue)
