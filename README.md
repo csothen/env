@@ -12,7 +12,6 @@ Small library to parse environment variables
 import "github.com/csothen/env"
 
 func main() {
-    l := log.New(os.Stdout, "[ logger ]", log.LstdFlags)
     p := env.NewParser()
     
     err := p.Load(".env")
