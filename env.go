@@ -11,17 +11,6 @@ var (
 	ErrWrongFormat = fmt.Errorf("the file is not formatted correctly")
 )
 
-type EnvParser interface {
-	Load(file string) error
-	String(key, defaultValue string) string
-	Int(key string, defaultValue int) int
-	Int32(key string, defaultValue int32) int32
-	Int64(key string, defaultValue int64) int64
-	Float32(key string, defaultValue float32) float32
-	Float64(key string, defaultValue float64) float64
-	Bool(key string, defaultValue bool) bool
-}
-
 type Parser struct {
 	cache map[string]string
 }
