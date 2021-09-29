@@ -12,22 +12,20 @@ Small library to parse environment variables
 import "github.com/csothen/env"
 
 func main() {
-    p := env.NewParser()
-    
-    err := p.Load(".env")
+    err := env.Load(".env")
     if err != nil {
         panic(err)
     }
 
-    name := p.String("NAME", "Csothen")
+    name := env.String("NAME", "Csothen")
 
-    age := p.Int("AGE", 22)
-    height := p.Int32("HEIGHT", 171)
-    port := p.Int64("PORT", 8080)
+    age := env.Int("AGE", 22)
+    height := env.Int32("HEIGHT", 171)
+    port := env.Int64("PORT", 8080)
 
-    pi := p.Float32("PI", 3.14)
-    basePrice := p.Float64("BASE_PRICE", 100.00)
+    pi := env.Float32("PI", 3.14)
+    basePrice := env.Float64("BASE_PRICE", 100.00)
 
-    show := p.Bool("SHOW_PRICES", false)
+    show := env.Bool("SHOW_PRICES", false)
 }
 ```
